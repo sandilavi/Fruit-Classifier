@@ -6,18 +6,25 @@ import numpy as np
 model = load_model('ml_model.h5')
 
 def predict_image(img_path):
-    # Load and preprocess the image
-    img = image.load_img(img_path, target_size=(224, 224))  
-    img_array = image.img_to_array(img) / 255.0  # Rescale
-    img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
-    print(model.predict(img_array))
+    img = image.load_img(img_path, target_size=(224, 224))
+    img_array = image.img_to_array(img) / 255.0
+    img_array = np.expand_dims(img_array, axis=0)
 
-    # Predict the class
-    prediction = model.predict(img_array)
-    if prediction[0] > 0.7:
+    prediction = model.predict(img_array)[0]  # Extract prediction array
+    print(f"Raw predictions: {prediction}")
+
+    banana_confidence = prediction[0]  # Confidence for banana
+    apple_confidence = prediction[1]  # Confidence for apple
+
+    if max(banana_confidence, apple_confidence) < 0.6:  
+        print("This is something else.")
+        print(f"Confidence: {1 - max(banana_confidence, apple_confidence):.2%}")
+    elif banana_confidence > apple_confidence:
         print("This is a banana!")
+        print(f"Confidence: {banana_confidence:.2%}")
     else:
-        print("This is not a banana!")
+        print("This is an apple!")
+        print(f"Confidence: {apple_confidence:.2%}")
 
 # Test with a new image
 predict_image("Image_1.jpg")

@@ -29,16 +29,16 @@ print(f"Preprocessing Done! {processed_count} images resized.")
 datagen = ImageDataGenerator(
     rotation_range=20, width_shift_range=0.2, height_shift_range=0.2,
     shear_range=0.2, zoom_range=0.2, horizontal_flip=True, fill_mode='nearest',
-    rescale=1./255, validation_split=0.2
+    rescale=1./255, validation_split=0.2, brightness_range=[0.8, 1.2], channel_shift_range=0.2
 )
 
 # Load Augmented Data for Training & Validation
 train_generator = datagen.flow_from_directory(
-    "dataset", target_size=(224, 224), batch_size=32, class_mode="binary", subset="training"
+    "dataset", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="training"
 )
 
 val_generator = datagen.flow_from_directory(
-    "dataset", target_size=(224, 224), batch_size=32, class_mode="binary", subset="validation"
+    "dataset", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="validation"
 )
 
 # Build the CNN Model
@@ -50,14 +50,14 @@ model = Sequential([
     Flatten(),
     Dense(128, activation="relu"),
     Dropout(0.5),  # Helps reduce overfitting
-    Dense(1, activation="sigmoid")
+    Dense(2, activation="softmax")
 ])
 
 # Compile the Model
-model.compile(optimizer=Adam(learning_rate=0.001), loss="binary_crossentropy", metrics=["accuracy"])
+model.compile(optimizer=Adam(learning_rate=0.001), loss="categorical_crossentropy", metrics=["accuracy"])
 
 # Train the Model
-model.fit(train_generator, validation_data=val_generator, epochs=8)
+model.fit(train_generator, validation_data=val_generator, epochs=10)
 print("Training Complete! Model is ready.")
 
 # Evaluate the model on validation data
