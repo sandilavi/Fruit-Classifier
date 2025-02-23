@@ -3,7 +3,7 @@ from tensorflow.keras.preprocessing import image
 import numpy as np
 
 # Load the trained model
-model = load_model('ml_model.h5')
+model = load_model('fruit_classifier.h5')
 
 def predict_image(img_path):
     img = image.load_img(img_path, target_size=(224, 224))
@@ -16,7 +16,7 @@ def predict_image(img_path):
     banana_confidence = prediction[0]  # Confidence for banana
     apple_confidence = prediction[1]  # Confidence for apple
 
-    if max(banana_confidence, apple_confidence) < 0.6:  
+    if max(banana_confidence, apple_confidence) < 0.5:  
         print("This is something else.")
         print(f"Confidence: {1 - max(banana_confidence, apple_confidence):.2%}")
     elif banana_confidence > apple_confidence:
@@ -27,4 +27,6 @@ def predict_image(img_path):
         print(f"Confidence: {apple_confidence:.2%}")
 
 # Test with a new image
-predict_image("Image_1.jpg")
+predict_image("image_banana.jpg")
+#predict_image("image_apple.jpg")
+#predict_image("image_other.jpeg")

@@ -36,7 +36,6 @@ datagen = ImageDataGenerator(
 train_generator = datagen.flow_from_directory(
     "dataset", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="training"
 )
-
 val_generator = datagen.flow_from_directory(
     "dataset", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="validation"
 )
