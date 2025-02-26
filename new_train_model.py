@@ -50,3 +50,4 @@ print(f"Model accuracy: {accuracy * 100:.2f}%")
 
 # Save the trained model
 model.save('fruit_classifier.h5')
+print(train_generator.class_indices)

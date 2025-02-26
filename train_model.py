@@ -73,4 +73,4 @@ print(f"Validation Accuracy: {validation_acc * 100:.2f}%")
 
 # Save the trained model to a file
 model.save('ml_model.h5')  
-print("Model saved as 'ml_model.h5'.")
+print(train_generator.class_indices)
