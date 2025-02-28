@@ -1,4 +1,3 @@
 dataset/
+testing_images/
 ml_model.h5
-fruit_classifier.h5
-not_banana/

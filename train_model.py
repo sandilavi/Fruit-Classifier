@@ -34,10 +34,10 @@ datagen = ImageDataGenerator(
 
 # Load Augmented Data for Training & Validation
 train_generator = datagen.flow_from_directory(
-    "dataset", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="training"
+    "dataset", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="training", seed=2
 )
 val_generator = datagen.flow_from_directory(
-    "dataset", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="validation"
+    "dataset", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="validation", seed=2
 )
 
 # Build the CNN Model
@@ -62,14 +62,6 @@ print("Training Complete! Model is ready.")
 # Evaluate the model on validation data
 loss, accuracy = model.evaluate(val_generator)
 print(f"Model accuracy: {accuracy * 100:.2f}%")
-
-# Evaluate training accuracy
-loss, training_acc = model.evaluate(train_generator)
-print(f"Training Accuracy: {training_acc * 100:.2f}%")
-
-# Evaluate validation accuracy
-loss, validation_acc = model.evaluate(val_generator)
-print(f"Validation Accuracy: {validation_acc * 100:.2f}%")
 
 # Save the trained model to a file
 model.save('ml_model.h5')  
