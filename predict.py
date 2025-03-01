@@ -1,5 +1,6 @@
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
+from sklearn.metrics import confusion_matrix, classification_report
 import numpy as np
 
 # Load the trained model
@@ -12,21 +13,21 @@ def predict_image(img_path):
 
     prediction = model.predict(img_array)[0]
     print(f"Raw predictions: {prediction}")
-    print(f"Predicting for image: {img_path}")  # Print image filename
+    print(f"Predicting for image: {img_path}")
 
-    apple_confidence = prediction[0]  # Confidence for apple
-    banana_confidence = prediction[1]  # Confidence for banana
+    class_labels = ['apple', 'banana', 'pineapple']
+    predicted_class = class_labels[np.argmax(prediction)]
+    confidence = np.max(prediction)
 
-    if max(banana_confidence, apple_confidence) < 0.5:  
-        print("This is something else.")
-        print(f"Confidence: {1 - max(banana_confidence, apple_confidence):.2%}")
-    elif banana_confidence > apple_confidence:
-        print("This is a banana!")
-        print(f"Confidence: {banana_confidence:.2%}")
+    if confidence < 0.5:
+        print(f"Not sure what this is.")
+        print(f"Confidence: {confidence:.2%}")
     else:
-        print("This is an apple!")
-        print(f"Confidence: {apple_confidence:.2%}")
+        print(f"This is an image of {predicted_class}!")
+        print(f"Confidence: {confidence:.2%}")
 
 # Test with a new image
-#predict_image("testing_images/image_apple.jpg")
-predict_image("testing_images/OIP.jpeg")
+predict_image("testing_images/download1.jpeg")
+#predict_image("testing_images/image_banana.jpg")
+#predict_image("testing_images/image_other.jpeg")
+#predict_image("testing_images/banana.jpeg")
