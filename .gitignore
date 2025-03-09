@@ -1,4 +1,5 @@
 testing_images/
 misclassified_images/
 ml_model.h5
+fruit_classifier.h5
 testfile.py
