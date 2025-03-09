@@ -4,6 +4,10 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import EarlyStopping
+import os
+import tensorflow as tf
+import numpy as np
+import random
 import time
 start_time = time.time()
 
@@ -48,7 +52,6 @@ val_generator = datagen.flow_from_directory(
 )
 
 # Train the model
-# model.fit(train_generator, validation_data=val_generator, epochs=7)
 early_stopping = EarlyStopping(monitor='val_loss', patience=2, restore_best_weights=True)
 model.fit(train_generator, validation_data=val_generator, epochs=7, callbacks=[early_stopping])
 print("Training Complete! Model is ready.")
@@ -74,6 +77,10 @@ loss, validation_acc = model.evaluate(val_generator)
 print(f"Model accuracy: {accuracy * 100:.2f}%.")
 print(f"Training Accuracy: {training_acc * 100:.2f}%")
 print(f"Validation Accuracy: {validation_acc * 100:.2f}%")
+
+# Save the trained model to a file
+model.save('fruit_classifier.h5')  
+print(train_generator.class_indices)
 
 end_time = time.time()
 print(f"Runtime: {end_time - start_time:.2f} seconds")
