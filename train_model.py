@@ -69,7 +69,7 @@ model.compile(optimizer=Adam(learning_rate=0.001), loss="categorical_crossentrop
 
 # Train the Model
 early_stopping = EarlyStopping(monitor='val_loss', patience=2, restore_best_weights=True)
-model.fit(train_generator, validation_data=val_generator, epochs=15, callbacks=[early_stopping])
+model.fit(train_generator, validation_data=val_generator, epochs=30, callbacks=[early_stopping])
 print("Training Complete! Model is ready.")
 
 # Get true labels and predictions from the validation data

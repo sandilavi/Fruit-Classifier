@@ -4,6 +4,7 @@ from tensorflow.keras.models import Model
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.callbacks import EarlyStopping
+from sklearn.metrics import confusion_matrix, classification_report
 import os
 import tensorflow as tf
 import numpy as np
@@ -53,7 +54,7 @@ val_generator = datagen.flow_from_directory(
 
 # Train the model
 early_stopping = EarlyStopping(monitor='val_loss', patience=2, restore_best_weights=True)
-model.fit(train_generator, validation_data=val_generator, epochs=7, callbacks=[early_stopping])
+model.fit(train_generator, validation_data=val_generator, epochs=20, callbacks=[early_stopping])
 print("Training Complete! Model is ready.")
 
 # Get true labels and predictions from the validation data

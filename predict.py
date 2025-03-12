@@ -4,7 +4,7 @@ from sklearn.metrics import confusion_matrix, classification_report
 import numpy as np
 
 # Load the trained model
-model = load_model('ml_model.h5')
+model = load_model('fruit_classifier.h5')
 
 def predict_image(img_path):
     img = image.load_img(img_path, target_size=(224, 224))

@@ -5,7 +5,7 @@ from tensorflow.keras.preprocessing import image
 import shutil
 
 # Load the trained model
-model = load_model('ml_model.h5')
+model = load_model('fruit_classifier.h5')
 
 # Define the classes (adjust according to your class labels)
 class_labels = ['apple', 'banana', 'pineapple']
