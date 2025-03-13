@@ -4,7 +4,7 @@ from sklearn.metrics import confusion_matrix, classification_report
 import numpy as np
 
 # Load the trained model
-model = load_model('fruit_classifier.h5')
+model = load_model('fruit_vs_nonfruit.h5')
 
 def predict_image(img_path):
     img = image.load_img(img_path, target_size=(224, 224))
@@ -15,7 +15,7 @@ def predict_image(img_path):
     print(f"Raw predictions: {prediction}")
     print(f"Predicting for image: {img_path}")
 
-    class_labels = ['apple', 'banana', 'pineapple']
+    class_labels = ['fruit', 'non_fruit']
     predicted_class = class_labels[np.argmax(prediction)]
     confidence = np.max(prediction)
 

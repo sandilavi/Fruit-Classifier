@@ -29,7 +29,7 @@ for layer in base_model.layers:
 x = base_model.output
 x = GlobalAveragePooling2D()(x)  # Add a global average pooling layer
 x = Dense(1024, activation='relu')(x)  # Add a fully connected layer
-predictions = Dense(3, activation='softmax')(x)  # Output layer for 2 classes (banana, apple)
+predictions = Dense(2, activation='softmax')(x)
 
 # Create the final model
 model = Model(inputs=base_model.input, outputs=predictions)
@@ -46,10 +46,10 @@ datagen = ImageDataGenerator(
 
 # Load Augmented Data for Training & Validation
 train_generator = datagen.flow_from_directory(
-    "dataset", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="training", shuffle=False
+    "fruit vs non_fruit", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="training", shuffle=False
 )
 val_generator = datagen.flow_from_directory(
-    "dataset", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="validation", shuffle=False
+    "fruit vs non_fruit", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="validation", shuffle=False
 )
 
 # Train the model
@@ -80,7 +80,7 @@ print(f"Training Accuracy: {training_acc * 100:.2f}%")
 print(f"Validation Accuracy: {validation_acc * 100:.2f}%")
 
 # Save the trained model to a file
-model.save('fruit_classifier.h5')  
+model.save('fruit_vs_nonfruit.h5')  
 print(train_generator.class_indices)
 
 end_time = time.time()

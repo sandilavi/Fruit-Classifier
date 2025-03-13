@@ -5,13 +5,13 @@ from tensorflow.keras.preprocessing import image
 import shutil
 
 # Load the trained model
-model = load_model('fruit_classifier.h5')
+model = load_model('fruit_vs_nonfruit.h5')
 
 # Define the classes (adjust according to your class labels)
-class_labels = ['apple', 'banana', 'pineapple']
+class_labels = ['fruit', 'non_fruit']
 
 # Path to the dataset folder
-dataset_path = 'dataset'
+dataset_path = 'fruit vs non_fruit'
 
 def predict_image(img_path):
     img = image.load_img(img_path, target_size=(224, 224))

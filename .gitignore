@@ -1,4 +1,4 @@
 misclassified_images/
-ml_model.h5
-fruit_classifier.h5
+fruit_vs_nonfruit.h5
 testfile.py
+fruit vs non_fruit/
