@@ -1,4 +1,5 @@
-misclassified_images/
-fruit_vs_nonfruit.h5
-testfile.py
 fruit vs non_fruit/
+fruits/
+misclassified_images/
+testing_images/
+fruit_vs_nonfruit.h5

@@ -46,10 +46,10 @@ datagen = ImageDataGenerator(
 
 # Load Augmented Data for Training & Validation
 train_generator = datagen.flow_from_directory(
-    "fruit vs non_fruit", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="training", shuffle=False
+    "/content/drive/My Drive/Fruit Classifier Images/fruit vs non_fruit", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="training", shuffle=False
 )
 val_generator = datagen.flow_from_directory(
-    "fruit vs non_fruit", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="validation", shuffle=False
+    "/content/drive/My Drive/Fruit Classifier Images/fruit vs non_fruit", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="validation", shuffle=False
 )
 
 # Train the model
