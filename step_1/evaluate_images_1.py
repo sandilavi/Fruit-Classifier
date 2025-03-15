@@ -36,7 +36,7 @@ misclassified_count_per_class = {label: 0 for label in class_labels}
 iterate_count = 0
 
 # Remove misclassified_images folder if it exists
-misclassified_folder = '/content/drive/My Drive/Fruit Classifier Images/step_1/misclassified_images_1'
+misclassified_folder = 'step_1/misclassified_images_1'
 if os.path.exists(misclassified_folder):
     shutil.rmtree(misclassified_folder)
 
