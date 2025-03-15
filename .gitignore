@@ -1,5 +1,7 @@
-fruit vs non_fruit/
-fruits/
-misclassified_images/
 testing_images/
-fruit_vs_nonfruit.h5
+dataset_1/
+misclassified_images_1/
+ml_model_1.h5
+dataset_2/
+misclassified_images_2/
+ml_model_2.h5

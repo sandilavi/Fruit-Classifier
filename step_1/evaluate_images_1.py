@@ -5,13 +5,13 @@ from tensorflow.keras.preprocessing import image
 import shutil
 
 # Load the trained model
-model = load_model('step_1/fruit_vs_nonfruit.h5')
+model = load_model('step_1/ml_model_1.h5')
 
-# Define the classes (adjust according to your class labels)
+# Define the classes
 class_labels = ['fruit', 'non_fruit']
 
 # Path to the dataset folder
-dataset_path = 'step_1/fruit vs non_fruit'
+dataset_path = '/content/drive/My Drive/Fruit Classifier Images/step_1/dataset_1'
 
 def predict_image(img_path):
     img = image.load_img(img_path, target_size=(224, 224))
@@ -36,7 +36,7 @@ misclassified_count_per_class = {label: 0 for label in class_labels}
 iterate_count = 0
 
 # Remove misclassified_images folder if it exists
-misclassified_folder = 'misclassified_images'
+misclassified_folder = '/content/drive/My Drive/Fruit Classifier Images/step_1/misclassified_images_1'
 if os.path.exists(misclassified_folder):
     shutil.rmtree(misclassified_folder)
 

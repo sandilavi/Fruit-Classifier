@@ -46,10 +46,10 @@ datagen = ImageDataGenerator(
 
 # Load Augmented Data for Training & Validation
 train_generator = datagen.flow_from_directory(
-    "/content/drive/My Drive/Fruit Classifier Images/fruit vs non_fruit", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="training", shuffle=False
+    "/content/drive/My Drive/Fruit Classifier Images/step_1/dataset_1", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="training", shuffle=False
 )
 val_generator = datagen.flow_from_directory(
-    "/content/drive/My Drive/Fruit Classifier Images/fruit vs non_fruit", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="validation", shuffle=False
+    "/content/drive/My Drive/Fruit Classifier Images/step_1/dataset_1", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="validation", shuffle=False
 )
 
 # Train the model
@@ -80,7 +80,7 @@ print(f"Training Accuracy: {training_acc * 100:.2f}%")
 print(f"Validation Accuracy: {validation_acc * 100:.2f}%")
 
 # Save the trained model to a file
-model.save('fruit_vs_nonfruit.h5')  
+model.save('ml_model_1.h5')  
 print(train_generator.class_indices)
 
 end_time = time.time()
