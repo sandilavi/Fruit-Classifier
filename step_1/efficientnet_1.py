@@ -1,4 +1,4 @@
-from tensorflow.keras.applications import ResNet50
+from tensorflow.keras.applications import EfficientNetB0
 from tensorflow.keras.layers import Dense, GlobalAveragePooling2D
 from tensorflow.keras.models import Model
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
@@ -18,18 +18,18 @@ np.random.seed(seed_value)
 tf.random.set_seed(seed_value)
 os.environ['PYTHONHASHSEED'] = str(seed_value)
 
-# Load a pre-trained model (ResNet50)
-base_model = ResNet50(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
+# Load a pre-trained model (EfficientNetB0)
+base_model = EfficientNetB0(weights='imagenet', include_top=False, input_shape=(224, 224, 3))
 
-# Freeze the pre-trained layers (so they won’t be updated during training)
+# Freeze the pre-trained layers
 for layer in base_model.layers:
     layer.trainable = False
 
 # Add custom layers on top
 x = base_model.output
-x = GlobalAveragePooling2D()(x)  # Add a global average pooling layer
-x = Dense(1024, activation='relu')(x)  # Add a fully connected layer
-predictions = Dense(3, activation='softmax')(x)
+x = GlobalAveragePooling2D()(x)
+x = Dense(512, activation='relu')(x)
+predictions = Dense(2, activation='softmax')(x)
 
 # Create the final model
 model = Model(inputs=base_model.input, outputs=predictions)
@@ -46,10 +46,10 @@ datagen = ImageDataGenerator(
 
 # Load Augmented Data for Training & Validation
 train_generator = datagen.flow_from_directory(
-    "/content/drive/My Drive/Fruit Classifier Images/step_2/dataset_2", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="training", shuffle=False
+    "/content/drive/My Drive/Fruit Classifier Images/step_1/dataset_1", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="training", shuffle=False
 )
 val_generator = datagen.flow_from_directory(
-    "/content/drive/My Drive/Fruit Classifier Images/step_2/dataset_2", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="validation", shuffle=False
+    "/content/drive/My Drive/Fruit Classifier Images/step_1/dataset_1", target_size=(224, 224), batch_size=32, class_mode="categorical", subset="validation", shuffle=False
 )
 
 # Train the model
@@ -61,7 +61,6 @@ print("Training Complete! Model is ready.")
 y_true = val_generator.classes
 y_pred = model.predict(val_generator, verbose=1)
 
-# Convert predictions to class labels
 y_pred = np.argmax(y_pred, axis=1)
 
 # Compute Confusion Matrix
@@ -79,8 +78,8 @@ print(f"Model accuracy: {accuracy * 100:.2f}%.")
 print(f"Training Accuracy: {training_acc * 100:.2f}%")
 print(f"Validation Accuracy: {validation_acc * 100:.2f}%")
 
-# Save the trained model to a file
-model.save('ml_model_2_resnet.h5')  
+# Save the trained model
+model.save('step_1/ml_model_1_efficientnet.h5')
 print(train_generator.class_indices)
 
 end_time = time.time()

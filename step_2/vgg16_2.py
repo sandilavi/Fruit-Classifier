@@ -80,7 +80,7 @@ print(f"Training Accuracy: {training_acc * 100:.2f}%")
 print(f"Validation Accuracy: {validation_acc * 100:.2f}%")
 
 # Save the trained model to a file
-model.save('ml_model_2.h5')  
+model.save('step_2/ml_model_2.h5')  
 print(train_generator.class_indices)
 
 end_time = time.time()
