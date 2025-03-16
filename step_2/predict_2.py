@@ -47,7 +47,7 @@ def draw_bounding_boxes(img_path, model):
     
     # Prediction logic for fruits
     prediction = model.predict(img_array)[0]
-    class_labels = ['apple', 'banana', 'pineapple']
+    class_labels = ['apple', 'banana', 'pineapple', 'unknown']
     predicted_class = class_labels[np.argmax(prediction)]
     confidence = np.max(prediction)
 

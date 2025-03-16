@@ -8,7 +8,7 @@ import shutil
 model = load_model('step_2/ml_model_2.h5')
 
 # Define the classes
-class_labels = ['apple', 'banana', 'pineapple']
+class_labels = ['apple', 'banana', 'pineapple', 'unknown']
 
 # Path to the dataset folder
 dataset_path = '/content/drive/My Drive/Fruit Classifier Images/step_2/dataset_2'

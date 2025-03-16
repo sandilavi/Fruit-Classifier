@@ -29,7 +29,7 @@ for layer in base_model.layers:
 x = base_model.output
 x = GlobalAveragePooling2D()(x)  # Add a global average pooling layer
 x = Dense(1024, activation='relu')(x)  # Add a fully connected layer
-predictions = Dense(3, activation='softmax')(x)
+predictions = Dense(4, activation='softmax')(x)
 
 # Create the final model
 model = Model(inputs=base_model.input, outputs=predictions)
