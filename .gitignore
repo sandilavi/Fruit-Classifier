@@ -2,6 +2,8 @@ testing_images/
 dataset_1/
 misclassified_images_1/
 ml_model_1.h5
+dataset_2o/
 dataset_2/
 misclassified_images_2/
 ml_model_2.h5
+features_2.pkl

@@ -119,11 +119,11 @@ def draw_bounding_boxes(img_path, model_fruit_non_fruit, model_fruit_type):
 # Function to predict fruit type
 def predict_fruit_type(img_array):
     prediction = model_fruit_type.predict(img_array)[0]
-    fruit_types = ['apple', 'banana', 'pineapple']
+    fruit_types = ['apple', 'banana', 'pineapple', 'unknown']
     predicted_type = fruit_types[np.argmax(prediction)]
     return predicted_type, np.max(prediction)
 
 # Test with an image
-image_path = os.path.join("step_1", "dataset_1", "fruit", "fruit_1.jpg")
-#image_path = os.path.join("testing_images", "OIP2.jpeg")
+#image_path = os.path.join("step_1", "dataset_1", "fruit", "fruit_21.jpeg")
+image_path = os.path.join("testing_images", "test2.jpg")
 draw_bounding_boxes(image_path, model_fruit_non_fruit, model_fruit_type)
