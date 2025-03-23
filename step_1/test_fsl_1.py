@@ -18,9 +18,9 @@ detector = YOLO("yolov8n.pt")
 # Load VGG16 model
 feature_model = VGG16(weights="imagenet", include_top=False, input_shape=(224, 224, 3))
 
-# Load saved fruit feature embeddings
-with open("step_2/features_2.pkl", "rb") as f:
-    feature_dict = pickle.load(f)
+# Load saved feature embeddings
+with open("step_1/features_1.pkl", "rb") as f:
+    feature_dict = pickle.load(f)  # Ensure this contains both 'fruit' and 'non-fruit' categories
 
 def extract_features(image, model):
     """Extracts VGG16 features from an image."""
@@ -31,7 +31,7 @@ def extract_features(image, model):
     return features.flatten()
 
 def classify_object(roi):
-    """Classify detected object using VGG16 features and cosine similarity."""
+    """Classify detected object as fruit or non-fruit using FSL."""
     roi_resized = cv2.resize(roi, IMAGE_SIZE)
     test_feature = extract_features(roi_resized, feature_model)
     best_match, highest_similarity = "Unknown", 0
@@ -52,28 +52,26 @@ image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 # Perform object detection
 detections = detector(image_rgb)
 
-best_fruit_type = "Unknown"
+best_class = "Unknown"
 best_confidence = 0
 
 # Process detections
 for result in detections:
     for det in result.boxes:
         x1, y1, x2, y2 = map(int, det.xyxy[0])
-        conf = det.conf[0].item()  # YOLO confidence
-        cls = int(det.cls[0])  # YOLO class index
-        label = detector.names[cls]  # YOLO label
         roi = image_rgb[y1:y2, x1:x2]
 
         if roi.size > 0:
             predicted_class, classification_conf = classify_object(roi)
             if classification_conf > best_confidence:
-                best_fruit_type = predicted_class
+                best_class = predicted_class
                 best_confidence = classification_conf
 
-            # Draw bounding box and label
-            cv2.rectangle(image, (x1, y1), (x2, y2), (0, 255, 0), 2)
+            # Draw bounding box: Green for fruit, Red for non-fruit
+            color = (0, 255, 0) if predicted_class == "fruit" else (0, 0, 255)
+            cv2.rectangle(image, (x1, y1), (x2, y2), color, 2)
             cv2.putText(image, f"{predicted_class} ({classification_conf:.2f}%)",
-                        (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                        (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
 # Convert for matplotlib display
 image_rgb_for_display = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
